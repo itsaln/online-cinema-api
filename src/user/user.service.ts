@@ -19,25 +19,6 @@ export class UserService {
 		return user
 	}
 
-	async updateProfile(_id: string, dto: UpdateUserDto) {
-		const user = await this.findOne(_id)
-		const isSameUser = await this.UserModel.findOne({ email: dto.email })
-
-		if (isSameUser && String(_id) !== String(isSameUser._id))
-			throw new NotFoundException('Email busy')
-
-		if (dto.password) {
-			const salt = await genSalt(10)
-			user.password = await hash(dto.password, salt)
-		}
-
-		user.email = dto.email
-		if (dto.isAdmin || dto.isAdmin === false) user.isAdmin = dto.isAdmin
-
-		await user.save()
-		return
-	}
-
 	async getCount() {
 		return this.UserModel.find().count().exec()
 	}
@@ -58,6 +39,25 @@ export class UserService {
 		return this.UserModel.find(options).select('-password -updatedAt -__v').sort({
 			createdAt: 'desc'
 		}).exec()
+	}
+
+	async update(_id: string, dto: UpdateUserDto) {
+		const user = await this.findOne(_id)
+		const isSameUser = await this.UserModel.findOne({ email: dto.email })
+
+		if (isSameUser && String(_id) !== String(isSameUser._id))
+			throw new NotFoundException('Email busy')
+
+		if (dto.password) {
+			const salt = await genSalt(10)
+			user.password = await hash(dto.password, salt)
+		}
+
+		user.email = dto.email
+		if (dto.isAdmin || dto.isAdmin === false) user.isAdmin = dto.isAdmin
+
+		await user.save()
+		return
 	}
 
 	async delete(id: string) {

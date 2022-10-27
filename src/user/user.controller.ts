@@ -30,8 +30,8 @@ export class UserController {
 	@Put('profile')
 	@HttpCode(200)
 	@Auth()
-	updateProfile(@User('_id') _id: string, @Body() dto: UpdateUserDto) {
-		return this.userService.updateProfile(_id, dto)
+	update(@User('_id') _id: string, @Body() dto: UpdateUserDto) {
+		return this.userService.update(_id, dto)
 	}
 
 	@Get('count')
@@ -60,7 +60,7 @@ export class UserController {
 		@Param('id', IdValidationPipe) id: string,
 		@Body() dto: UpdateUserDto
 	) {
-		return this.userService.updateProfile(id, dto)
+		return this.userService.update(id, dto)
 	}
 
 	@Delete(':id')
