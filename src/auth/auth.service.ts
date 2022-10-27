@@ -27,10 +27,12 @@ export class AuthService {
 			password: await hash(dto.password, salt)
 		})
 
-		const tokens = await this.issueTokenPair(String(newUser._id))
+		const user = await newUser.save()
+
+		const tokens = await this.issueTokenPair(String(user._id))
 
 		return {
-			user: this.returnUserFields(newUser),
+			user: this.returnUserFields(user),
 			...tokens
 		}
 	}
@@ -53,6 +55,7 @@ export class AuthService {
 		if (!result) throw new UnauthorizedException('Invalid token or expired!')
 
 		const user = await this.UserModel.findById(result._id)
+
 		const tokens = await this.issueTokenPair(String(user._id))
 
 		return {
