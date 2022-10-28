@@ -7,7 +7,7 @@ import { AppService } from '@app/app.service'
 import { AuthModule } from '@app/auth/auth.module'
 import { UserModule } from '@app/user/user.module'
 import { GenreModule } from '@app/genre/genre.module'
-import { FileModule } from './file/file.module';
+import { FileModule } from '@app/file/file.module'
 
 @Module({
 	imports: [
