@@ -41,7 +41,7 @@ export class GenreService {
 			}
 		}
 
-		return this.GenreModel.find(options)
+		return await this.GenreModel.find(options)
 			.select('-updatedAt -__v')
 			.sort({
 				createdAt: 'desc'

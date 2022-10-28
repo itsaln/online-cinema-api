@@ -37,6 +37,11 @@ export class GenreController {
 		return this.genreService.findAll(searchTerm)
 	}
 
+	@Get('collections')
+	getCollections() {
+		return this.genreService.getCollections()
+	}
+
 	@UsePipes(new ValidationPipe())
 	@Post()
 	@HttpCode(200)
@@ -58,10 +63,5 @@ export class GenreController {
 	@Auth('admin')
 	delete(@Param('id', IdValidationPipe) id: string) {
 		return this.genreService.delete(id)
-	}
-
-	@Get('collections')
-	getCollections() {
-		return this.genreService.getCollections()
 	}
 }
