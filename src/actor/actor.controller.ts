@@ -48,10 +48,7 @@ export class ActorController {
 	@Put(':id')
 	@HttpCode(200)
 	@Auth('admin')
-	update(
-		@Param('id', IdValidationPipe) id: string,
-		@Body() dto: ActorDto
-	) {
+	update(@Param('id', IdValidationPipe) id: string, @Body() dto: ActorDto) {
 		return this.actorService.update(id, dto)
 	}
 

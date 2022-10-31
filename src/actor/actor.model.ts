@@ -7,7 +7,7 @@ export class ActorModel extends TimeStamps {
 	@prop()
 	name: string
 
-	@prop({unique: true})
+	@prop({ unique: true })
 	slug: string
 
 	@prop()
