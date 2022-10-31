@@ -11,29 +11,29 @@ import {
 	UsePipes,
 	ValidationPipe
 } from '@nestjs/common'
-import { GenreService } from '@app/genre/genre.service'
+import { ActorService } from '@app/actor/actor.service'
 import { Auth } from '@app/auth/decorators/auth.decorator'
 import { IdValidationPipe } from '@app/pipes/id.validation.pipe'
-import { CreateGenreDto } from '@app/genre/dto/create-genre.dto'
+import { ActorDto } from '@app/actor/actor.dto'
 
-@Controller('genres')
-export class GenreController {
-	constructor(private readonly genreService: GenreService) {}
+@Controller('actors')
+export class ActorController {
+	constructor(private readonly actorService: ActorService) {}
 
 	@Get(':id')
 	@Auth('admin')
 	findOne(@Param('id', IdValidationPipe) id: string) {
-		return this.genreService.findOne(id)
+		return this.actorService.findOne(id)
 	}
 
 	@Get('bg-slug/:slug')
 	findBySlug(@Param('slug') slug: string) {
-		return this.genreService.findBySlug(slug)
+		return this.actorService.findBySlug(slug)
 	}
 
 	@Get()
 	findAll(@Query('searchTerm') searchTerm?: string) {
-		return this.genreService.findAll(searchTerm)
+		return this.actorService.findAll(searchTerm)
 	}
 
 	@UsePipes(new ValidationPipe())
@@ -41,7 +41,7 @@ export class GenreController {
 	@HttpCode(200)
 	@Auth('admin')
 	create() {
-		return this.genreService.create()
+		return this.actorService.create()
 	}
 
 	@UsePipes(new ValidationPipe())
@@ -50,20 +50,15 @@ export class GenreController {
 	@Auth('admin')
 	update(
 		@Param('id', IdValidationPipe) id: string,
-		@Body() dto: CreateGenreDto
+		@Body() dto: ActorDto
 	) {
-		return this.genreService.update(id, dto)
+		return this.actorService.update(id, dto)
 	}
 
 	@Delete(':id')
 	@HttpCode(200)
 	@Auth('admin')
 	delete(@Param('id', IdValidationPipe) id: string) {
-		return this.genreService.delete(id)
-	}
-
-	@Get('collections')
-	getCollections() {
-		return this.genreService.getCollections()
+		return this.actorService.delete(id)
 	}
 }
