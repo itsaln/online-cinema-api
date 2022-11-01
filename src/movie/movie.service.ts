@@ -29,7 +29,7 @@ export class MovieService {
 		return movie
 	}
 
-	async findByActor(actorId: string) {
+	async findByActor(actorId: Types.ObjectId) {
 		const movies = await this.MovieModel.find({ actors: actorId }).exec()
 
 		if (!movies) throw new NotFoundException('Movies not found')
@@ -45,26 +45,6 @@ export class MovieService {
 		if (!movies) throw new NotFoundException('Movies not found')
 
 		return movies
-	}
-
-	async getMostPopular() {
-		return await this.MovieModel.find({ countOpened: { $gt: 0 } })
-			.sort({ countOpened: -1 })
-			.populate('genres')
-			.exec()
-	}
-
-	async updateCountOpened(slug: string) {
-		const updateMovie = await this.MovieModel.findByIdAndUpdate(
-			{ slug },
-			{
-				$inc: { countOpened: 1 }
-			}
-		).exec()
-
-		if (!updateMovie) throw new NotFoundException('Movie not found')
-
-		return updateMovie
 	}
 
 	async findAll(searchTerm?: string) {
@@ -84,6 +64,13 @@ export class MovieService {
 			.select('-updatedAt -__v')
 			.sort({ createdAt: 'desc' })
 			.populate('actors genres')
+			.exec()
+	}
+
+	async getMostPopular() {
+		return await this.MovieModel.find({ countOpened: { $gt: 0 } })
+			.sort({ countOpened: -1 })
+			.populate('genres')
 			.exec()
 	}
 
@@ -120,5 +107,18 @@ export class MovieService {
 		if (!deleteMovie) throw new NotFoundException('Movie not found')
 
 		return deleteMovie
+	}
+
+	async updateCountOpened(slug: string) {
+		const updateMovie = await this.MovieModel.findByIdAndUpdate(
+			{ slug },
+			{
+				$inc: { countOpened: 1 }
+			}
+		).exec()
+
+		if (!updateMovie) throw new NotFoundException('Movie not found')
+
+		return updateMovie
 	}
 }

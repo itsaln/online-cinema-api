@@ -26,7 +26,7 @@ export class ActorController {
 		return this.actorService.findOne(id)
 	}
 
-	@Get('bg-slug/:slug')
+	@Get('by-slug/:slug')
 	findBySlug(@Param('slug') slug: string) {
 		return this.actorService.findBySlug(slug)
 	}
