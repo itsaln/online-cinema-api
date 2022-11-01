@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectModel } from 'nestjs-typegoose'
+import { genSalt, hash } from 'bcryptjs'
 import { ModelType } from '@typegoose/typegoose/lib/types'
 import { UserModel } from '@app/user/user.model'
 import { UpdateUserDto } from '@app/user/dto/update-user.dto'
-import { genSalt, hash } from 'bcryptjs'
 
 @Injectable()
 export class UserService {
@@ -36,9 +36,12 @@ export class UserService {
 			}
 		}
 
-		return this.UserModel.find(options).select('-password -updatedAt -__v').sort({
-			createdAt: 'desc'
-		}).exec()
+		return this.UserModel.find(options)
+			.select('-password -updatedAt -__v')
+			.sort({
+				createdAt: 'desc'
+			})
+			.exec()
 	}
 
 	async update(_id: string, dto: UpdateUserDto) {

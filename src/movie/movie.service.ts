@@ -79,7 +79,6 @@ export class MovieService {
 			bigPoster: '',
 			actors: [],
 			genres: [],
-			description: '',
 			poster: '',
 			title: '',
 			videoUrl: '',
@@ -110,11 +109,12 @@ export class MovieService {
 	}
 
 	async updateCountOpened(slug: string) {
-		const updateMovie = await this.MovieModel.findByIdAndUpdate(
+		const updateMovie = await this.MovieModel.findOneAndUpdate(
 			{ slug },
 			{
 				$inc: { countOpened: 1 }
-			}
+			},
+			{ new: true }
 		).exec()
 
 		if (!updateMovie) throw new NotFoundException('Movie not found')

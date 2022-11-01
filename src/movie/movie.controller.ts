@@ -1,13 +1,37 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, Query, UsePipes, ValidationPipe } from '@nestjs/common'
+import {
+	Body,
+	Controller,
+	Delete,
+	Get,
+	HttpCode,
+	Param,
+	Post,
+	Put,
+	Query,
+	UsePipes,
+	ValidationPipe
+} from '@nestjs/common'
 import { Types } from 'mongoose'
 import { Auth } from '@app/auth/decorators/auth.decorator'
 import { MovieService } from '@app/movie/movie.service'
 import { IdValidationPipe } from '@app/pipes/id.validation.pipe'
 import { UpdateMovieDto } from '@app/movie/dto/update-movie.dto'
+import { GenreIdsDto } from '@app/movie/dto/genreIds.dto'
 
-@Controller('movie')
+@Controller('movies')
 export class MovieController {
 	constructor(private readonly movieService: MovieService) {}
+
+	@Get('most-popular')
+	getMostPopular() {
+		return this.movieService.getMostPopular()
+	}
+
+	@Put('update-count-opened')
+	@HttpCode(200)
+	updateCountOpened(@Body('slug') slug: string) {
+		return this.movieService.updateCountOpened(slug)
+	}
 
 	@Get(':id')
 	@Auth('admin')
@@ -25,20 +49,16 @@ export class MovieController {
 		return this.movieService.findByActor(actorId)
 	}
 
+	@UsePipes(new ValidationPipe())
 	@Post('by-genres')
 	@HttpCode(200)
-	findByGenres(@Body('genreIds') genreIds: Types.ObjectId[]) {
+	findByGenres(@Body() { genreIds }: GenreIdsDto) {
 		return this.movieService.findByGenres(genreIds)
 	}
 
 	@Get()
 	findAll(@Query('searchTerm') searchTerm?: string) {
 		return this.movieService.findAll(searchTerm)
-	}
-
-	@Get('most-popular')
-	getMostPopular() {
-		return this.movieService.getMostPopular()
 	}
 
 	@UsePipes(new ValidationPipe())
@@ -65,13 +85,5 @@ export class MovieController {
 	@Auth('admin')
 	delete(@Param('id', IdValidationPipe) id: string) {
 		return this.movieService.delete(id)
-	}
-
-	@Post('update-count-opened')
-	@HttpCode(200)
-	updateCountOpened(
-		@Body('slug') slug: string
-	) {
-		return this.movieService.updateCountOpened(slug)
 	}
 }

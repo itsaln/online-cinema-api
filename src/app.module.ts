@@ -9,7 +9,7 @@ import { UserModule } from '@app/user/user.module'
 import { GenreModule } from '@app/genre/genre.module'
 import { FileModule } from '@app/file/file.module'
 import { ActorModule } from '@app/actor/actor.module'
-import { MovieModule } from './movie/movie.module';
+import { MovieModule } from '@app/movie/movie.module'
 
 @Module({
 	imports: [

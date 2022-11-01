@@ -5,7 +5,10 @@ import { ensureDir, writeFile } from 'fs-extra'
 
 @Injectable()
 export class FileService {
-	async saveFiles(files: Express.Multer.File[], folder: string = 'default'): Promise<FileResponse[]> {
+	async saveFiles(
+		files: Express.Multer.File[],
+		folder: string = 'default'
+	): Promise<FileResponse[]> {
 		const uploadFolder = `${path}/uploads/${folder}`
 		await ensureDir(uploadFolder)
 

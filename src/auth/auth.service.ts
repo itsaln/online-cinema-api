@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common'
+import {
+	BadRequestException,
+	Injectable,
+	UnauthorizedException
+} from '@nestjs/common'
 import { InjectModel } from 'nestjs-typegoose'
 import { ModelType } from '@typegoose/typegoose/lib/types'
 import { hash, genSalt, compare } from 'bcryptjs'
@@ -12,13 +16,15 @@ export class AuthService {
 	constructor(
 		@InjectModel(UserModel) private readonly UserModel: ModelType<UserModel>,
 		private readonly jwtService: JwtService
-	) {
-	}
+	) {}
 
 	async register(dto: AuthDto) {
 		const oldUser = await this.UserModel.findOne({ email: dto.email })
 
-		if (oldUser) throw new BadRequestException('User with this email is already in the system')
+		if (oldUser)
+			throw new BadRequestException(
+				'User with this email is already in the system'
+			)
 
 		const salt = await genSalt(10)
 

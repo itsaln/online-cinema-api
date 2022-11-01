@@ -6,18 +6,18 @@ import { MovieService } from '@app/movie/movie.service'
 import { MovieModel } from '@app/movie/movie.model'
 
 @Module({
-  controllers: [MovieController],
-  providers: [MovieService],
-  imports: [
-    TypegooseModule.forFeature([
-      {
-        typegooseClass: MovieModel,
-        schemaOptions: {
-          collection: 'Movie'
-        }
-      }
-    ]),
-    ConfigModule
-  ]
+	controllers: [MovieController],
+	providers: [MovieService],
+	imports: [
+		TypegooseModule.forFeature([
+			{
+				typegooseClass: MovieModel,
+				schemaOptions: {
+					collection: 'Movie'
+				}
+			}
+		]),
+		ConfigModule
+	]
 })
 export class MovieModule {}

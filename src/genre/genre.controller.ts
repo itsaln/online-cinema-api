@@ -20,6 +20,11 @@ import { CreateGenreDto } from '@app/genre/dto/create-genre.dto'
 export class GenreController {
 	constructor(private readonly genreService: GenreService) {}
 
+	@Get('collections')
+	getCollections() {
+		return this.genreService.getCollections()
+	}
+
 	@Get(':id')
 	@Auth('admin')
 	findOne(@Param('id', IdValidationPipe) id: string) {
@@ -60,10 +65,5 @@ export class GenreController {
 	@Auth('admin')
 	delete(@Param('id', IdValidationPipe) id: string) {
 		return this.genreService.delete(id)
-	}
-
-	@Get('collections')
-	getCollections() {
-		return this.genreService.getCollections()
 	}
 }
