@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
+import { Types } from 'mongoose'
 import { InjectModel } from 'nestjs-typegoose'
 import { genSalt, hash } from 'bcryptjs'
 import { ModelType } from '@typegoose/typegoose/lib/types'
@@ -65,5 +66,13 @@ export class UserService {
 
 	async delete(id: string) {
 		return this.UserModel.findByIdAndDelete(id).exec()
+	}
+
+	async toggleFavorite(movieId: Types.ObjectId, user: UserModel) {
+		const {_id, favorites} = user
+
+		await this.UserModel.findByIdAndUpdate(_id, {
+			favorites: favorites.includes(movieId) ? favorites.filter(id => String(id) !== String(movieId)) : [...favorites, movieId]
+		})
 	}
 }
