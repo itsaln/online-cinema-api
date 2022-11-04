@@ -18,6 +18,7 @@ import { MovieModel } from '@app/movie/movie.model'
 			}
 		]),
 		ConfigModule
-	]
+	],
+	exports: [MovieService]
 })
 export class MovieModule {}
