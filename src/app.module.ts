@@ -11,6 +11,7 @@ import { FileModule } from '@app/file/file.module'
 import { ActorModule } from '@app/actor/actor.module'
 import { MovieModule } from '@app/movie/movie.module'
 import { RatingModule } from '@app/rating/rating.module'
+import { TelegramModule } from '@app/telegram/telegram.module'
 
 @Module({
 	imports: [
@@ -26,7 +27,8 @@ import { RatingModule } from '@app/rating/rating.module'
 		FileModule,
 		ActorModule,
 		MovieModule,
-		RatingModule
+		RatingModule,
+		TelegramModule
 	],
 	controllers: [AppController],
 	providers: [AppService]
