@@ -21,7 +21,7 @@ export class UserService {
 	}
 
 	async getCount() {
-		return this.UserModel.find().count().exec()
+		return await this.UserModel.find().count().exec()
 	}
 
 	async findAll(searchTerm?: string) {
