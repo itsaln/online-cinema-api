@@ -20,10 +20,6 @@ export class UserService {
 		return user
 	}
 
-	async getCount() {
-		return await this.UserModel.find().count().exec()
-	}
-
 	async findAll(searchTerm?: string) {
 		let options = {}
 
@@ -66,6 +62,10 @@ export class UserService {
 
 	async delete(id: string) {
 		return this.UserModel.findByIdAndDelete(id).exec()
+	}
+
+	async getCount() {
+		return await this.UserModel.find().count().exec()
 	}
 
 	async toggleFavorite(movieId: Types.ObjectId, user: UserModel) {

@@ -22,6 +22,12 @@ import { UserModel } from '@app/user/user.model'
 export class UserController {
 	constructor(private readonly userService: UserService) {}
 
+	@Get('count')
+	@Auth('admin')
+	getCountUsers() {
+		return this.userService.getCount()
+	}
+
 	@Get(':id')
 	@Auth('admin')
 	findOne(@Param('id', IdValidationPipe) id: string) {
@@ -69,12 +75,6 @@ export class UserController {
 		@User() user: UserModel
 	) {
 		return this.userService.toggleFavorite(movieId, user)
-	}
-
-	@Get('count')
-	@Auth('admin')
-	getCountUsers() {
-		return this.userService.getCount()
 	}
 
 	@UsePipes(new ValidationPipe())
