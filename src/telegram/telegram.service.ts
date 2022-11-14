@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { Telegraf } from 'telegraf'
-import { Telegram } from '@app/telegram/telegram.interface'
-import { getTelegramConfig } from '@app/config/telegram.config'
 import { ExtraReplyMessage } from 'telegraf/typings/telegram-types'
+import { getTelegramConfig } from '@app/config/telegram.config'
+import { Telegram } from '@app/telegram/telegram.interface'
 
 @Injectable()
 export class TelegramService {
