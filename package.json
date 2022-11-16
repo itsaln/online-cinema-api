@@ -2,9 +2,6 @@
   "name": "online-cinema-server",
   "version": "0.0.1",
   "description": "Online cinema application",
-  "engines": {
-    "node": "16.18.0"
-  },
   "author": {
     "email": "itsaln23@gmail.com",
     "name": "Aladin itsaln.uz",
