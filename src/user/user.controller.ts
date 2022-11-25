@@ -40,12 +40,18 @@ export class UserController {
 		return this.userService.findAll(searchTerm)
 	}
 
+	@Get('profile')
+	@Auth()
+	getProfile(@User('_id') _id: string) {
+		return this.userService.findOne(_id)
+	}
+
 	@UsePipes(new ValidationPipe())
 	@Put('profile')
 	@HttpCode(200)
 	@Auth()
-	update(@User('_id') _id: string, @Body() dto: UpdateUserDto) {
-		return this.userService.update(_id, dto)
+	updateProfile(@User('_id') _id: string, @Body() dto: UpdateUserDto) {
+		return this.userService.updateProfile(_id, dto)
 	}
 
 	@Delete(':id')
@@ -53,12 +59,6 @@ export class UserController {
 	@Auth('admin')
 	deleteUser(@Param('id', IdValidationPipe) id: string) {
 		return this.userService.delete(id)
-	}
-
-	@Get('profile')
-	@Auth()
-	getProfile(@User('_id') _id: string) {
-		return this.userService.findOne(_id)
 	}
 
 	@Get('profile/favorites')
@@ -85,6 +85,6 @@ export class UserController {
 		@Param('id', IdValidationPipe) id: string,
 		@Body() dto: UpdateUserDto
 	) {
-		return this.userService.update(id, dto)
+		return this.userService.updateProfile(id, dto)
 	}
 }
