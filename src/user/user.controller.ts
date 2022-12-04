@@ -58,7 +58,6 @@ export class UserController {
 		return this.userService.getCount()
 	}
 
-
 	@Get()
 	@Auth('admin')
 	findAll(@Query('searchTerm') searchTerm?: string) {

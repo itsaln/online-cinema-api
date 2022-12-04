@@ -14,18 +14,10 @@ export class RatingService {
 		private readonly movieService: MovieService
 	) {}
 
-	async getMovieValueByUser(movieId: Types.ObjectId, userId: Types.ObjectId) {
-		return this.RatingModel.findOne({ movieId, userId })
-			.select('value')
-			.exec()
-			.then(data => (data ? data.value : 0))
-	}
-
 	async averageRatingByMovie(movieId: Types.ObjectId | string) {
-		const ratingsMovie: RatingModel[] = await this.RatingModel.aggregate()
-			.match({
-				movieId: new Types.ObjectId(movieId)
-			})
+		const ratingsMovie: RatingModel[] = await this.RatingModel
+			.aggregate()
+			.match({ movieId: new Types.ObjectId(movieId) })
 			.exec()
 
 		return (
@@ -48,5 +40,13 @@ export class RatingService {
 		await this.movieService.updateRating(movieId, averageRating)
 
 		return newRating
+	}
+
+	async getMovieValueByUser(movieId: Types.ObjectId, userId: Types.ObjectId) {
+		return this.RatingModel
+			.findOne({ movieId, userId })
+			.select('value')
+			.exec()
+			.then(data => (data ? data.value : 0))
 	}
 }

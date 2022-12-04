@@ -10,20 +10,20 @@ import { SetRatingDto } from '@app/rating/dto/set-rating.dto'
 export class RatingController {
 	constructor(private readonly ratingService: RatingService) {}
 
-	@Get(':movieId')
-	@Auth()
-	async getMovieValueByUser(
-		@Param('movieId', IdValidationPipe) movieId: Types.ObjectId,
-		@User('_id') _id: Types.ObjectId
-	) {
-		return this.ratingService.getMovieValueByUser(movieId, _id)
-	}
-
 	@UsePipes(new ValidationPipe())
 	@Post('set-rating')
 	@HttpCode(200)
 	@Auth()
-	async setRating(@User('_id') _id: Types.ObjectId, @Body() dto: SetRatingDto) {
-		return this.ratingService.setRating(_id, dto)
+	async setRating(@User('_id') userId: Types.ObjectId, @Body() dto: SetRatingDto) {
+		return this.ratingService.setRating(userId, dto)
+	}
+
+	@Get(':movieId')
+	@Auth()
+	async getMovieValueByUser(
+		@Param('movieId', IdValidationPipe) movieId: Types.ObjectId,
+		@User('_id') userId: Types.ObjectId
+	) {
+		return this.ratingService.getMovieValueByUser(movieId, userId)
 	}
 }

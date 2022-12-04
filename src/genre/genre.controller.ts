@@ -20,13 +20,7 @@ import { CreateGenreDto } from '@app/genre/dto/create-genre.dto'
 export class GenreController {
 	constructor(private readonly genreService: GenreService) {}
 
-	@Get(':id')
-	@Auth('admin')
-	findOne(@Param('id', IdValidationPipe) id: string) {
-		return this.genreService.findOne(id)
-	}
-
-	@Get('bg-slug/:slug')
+	@Get('by-slug/:slug')
 	findBySlug(@Param('slug') slug: string) {
 		return this.genreService.findBySlug(slug)
 	}
@@ -34,6 +28,22 @@ export class GenreController {
 	@Get()
 	findAll(@Query('searchTerm') searchTerm?: string) {
 		return this.genreService.findAll(searchTerm)
+	}
+
+	@Get('popular')
+	getPopular() {
+		return this.genreService.getPopular()
+	}
+
+	@Get('collections')
+	getCollections() {
+		return this.genreService.getCollections()
+	}
+
+	@Get(':id')
+	@Auth('admin')
+	findOne(@Param('id', IdValidationPipe) id: string) {
+		return this.genreService.findOne(id)
 	}
 
 	@UsePipes(new ValidationPipe())
@@ -60,10 +70,5 @@ export class GenreController {
 	@Auth('admin')
 	delete(@Param('id', IdValidationPipe) id: string) {
 		return this.genreService.delete(id)
-	}
-
-	@Get('collections')
-	getCollections() {
-		return this.genreService.getCollections()
 	}
 }
