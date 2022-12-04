@@ -22,43 +22,18 @@ import { UserModel } from '@app/user/user.model'
 export class UserController {
 	constructor(private readonly userService: UserService) {}
 
-	@Get('count')
-	@Auth('admin')
-	getCountUsers() {
-		return this.userService.getCount()
-	}
-
-	@Get(':id')
-	@Auth('admin')
-	findOne(@Param('id', IdValidationPipe) id: string) {
-		return this.userService.findOne(id)
-	}
-
-	@Get()
-	@Auth('admin')
-	findAll(@Query('searchTerm') searchTerm?: string) {
-		return this.userService.findAll(searchTerm)
+	@Get('profile')
+	@Auth()
+	getProfile(@User('_id') _id: string) {
+		return this.userService.findOne(_id)
 	}
 
 	@UsePipes(new ValidationPipe())
 	@Put('profile')
 	@HttpCode(200)
 	@Auth()
-	update(@User('_id') _id: string, @Body() dto: UpdateUserDto) {
-		return this.userService.update(_id, dto)
-	}
-
-	@Delete(':id')
-	@HttpCode(200)
-	@Auth('admin')
-	deleteUser(@Param('id', IdValidationPipe) id: string) {
-		return this.userService.delete(id)
-	}
-
-	@Get('profile')
-	@Auth()
-	getProfile(@User('_id') _id: string) {
-		return this.userService.findOne(_id)
+	updateProfile(@User('_id') _id: string, @Body() dto: UpdateUserDto) {
+		return this.userService.updateProfile(_id, dto)
 	}
 
 	@Get('profile/favorites')
@@ -77,6 +52,25 @@ export class UserController {
 		return this.userService.toggleFavorite(movieId, user)
 	}
 
+	@Get('count')
+	@Auth('admin')
+	getCountUsers() {
+		return this.userService.getCount()
+	}
+
+
+	@Get()
+	@Auth('admin')
+	findAll(@Query('searchTerm') searchTerm?: string) {
+		return this.userService.findAll(searchTerm)
+	}
+
+	@Get(':id')
+	@Auth('admin')
+	findOne(@Param('id', IdValidationPipe) id: string) {
+		return this.userService.findOne(id)
+	}
+
 	@UsePipes(new ValidationPipe())
 	@Put(':id')
 	@HttpCode(200)
@@ -85,6 +79,13 @@ export class UserController {
 		@Param('id', IdValidationPipe) id: string,
 		@Body() dto: UpdateUserDto
 	) {
-		return this.userService.update(id, dto)
+		return this.userService.updateProfile(id, dto)
+	}
+
+	@Delete(':id')
+	@HttpCode(200)
+	@Auth('admin')
+	deleteUser(@Param('id', IdValidationPipe) id: string) {
+		return this.userService.delete(id)
 	}
 }
