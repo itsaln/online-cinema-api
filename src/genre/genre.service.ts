@@ -12,8 +12,7 @@ export class GenreService {
 	constructor(
 		@InjectModel(GenreModel) private readonly GenreModel: ModelType<GenreModel>,
 		private readonly movieService: MovieService
-	) {
-	}
+	) {}
 
 	async findAll(searchTerm?: string): Promise<DocumentType<GenreModel>[]> {
 		let options = {}
@@ -34,7 +33,8 @@ export class GenreService {
 			}
 		}
 
-		return await this.GenreModel.find(options)
+		return await this.GenreModel
+			.find(options)
 			.select('-updatedAt -__v')
 			.sort({ createdAt: 'desc' })
 			.exec()
@@ -49,7 +49,7 @@ export class GenreService {
 	}
 
 	async getPopular(): Promise<DocumentType<GenreModel>[]> {
-		return await this.GenreModel
+		return this.GenreModel
 			.find()
 			.select('-updatedAt -__v')
 			.sort({ createdAt: 'desc' })
