@@ -15,7 +15,7 @@ import { Types } from 'mongoose'
 import { Auth } from '@app/auth/decorators/auth.decorator'
 import { MovieService } from '@app/movie/movie.service'
 import { IdValidationPipe } from '@app/pipes/id.validation.pipe'
-import { UpdateMovieDto } from '@app/movie/dto/update-movie.dto'
+import { CreateMovieDto } from '@app/movie/dto/create-movie.dto'
 import { GenreIdsDto } from '@app/movie/dto/genreIds.dto'
 
 @Controller('movies')
@@ -75,7 +75,7 @@ export class MovieController {
 	@Auth('admin')
 	update(
 		@Param('id', IdValidationPipe) id: string,
-		@Body() dto: UpdateMovieDto
+		@Body() dto: CreateMovieDto
 	) {
 		return this.movieService.update(id, dto)
 	}
