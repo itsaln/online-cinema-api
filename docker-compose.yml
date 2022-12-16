@@ -1,0 +1,10 @@
+version: '3'
+services:
+  online-cinema.api:
+    image: online-cinema:latest
+    container_name: online-cinema
+    restart: always
+    ports:
+      - 5000:5000
+    volumes:
+      - ./.env:/opt/app/.env
