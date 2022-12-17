@@ -5,12 +5,6 @@
     "MONGO_URI": "mongodb+srv://itsaln:WxvDPn1011@cluster0.hgr0sbm.mongodb.net/online-cinema?retryWrites=true&w=majority",
     "JWT_SECRET": "468BKUv9BrR88VjuFWqF3ccXHCbyzYxBRXfaP9DCJkcQRR6fYxgragqttL8VsPAr"
   },
-  "builds": [
-    {
-      "src": "src/main.ts",
-      "use": "@vercel/node"
-    }
-  ],
   "routes": [
     {
       "src": "/(.*)",
