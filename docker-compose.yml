@@ -1,7 +1,7 @@
 version: '3'
 services:
   online-cinema.api:
-    image: docker pull ghcr.io/itsaln/online-cinema-server/online-cinema:develop
+    image: ghcr.io/itsaln/online-cinema-server/online-cinema:develop
     container_name: online-cinema
     restart: always
     ports:
