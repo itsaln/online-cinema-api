@@ -10,14 +10,16 @@ import {
 	UsePipes,
 	ValidationPipe
 } from '@nestjs/common'
+import { ApiTags } from '@nestjs/swagger'
 import { Types } from 'mongoose'
-import { UserService } from '@app/user/user.service'
 import { Auth } from '@app/auth/decorators/auth.decorator'
 import { User } from '@app/user/decorators/user.decorator'
-import { UpdateUserDto } from '@app/user/dto/update-user.dto'
 import { IdValidationPipe } from '@app/pipes/id.validation.pipe'
+import { UserService } from '@app/user/user.service'
+import { UpdateUserDto } from '@app/user/dto/update-user.dto'
 import { UserModel } from '@app/user/user.model'
 
+@ApiTags('Users')
 @Controller('users')
 export class UserController {
 	constructor(private readonly userService: UserService) {}

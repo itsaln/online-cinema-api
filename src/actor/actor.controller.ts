@@ -11,11 +11,13 @@ import {
 	UsePipes,
 	ValidationPipe
 } from '@nestjs/common'
+import { ApiTags } from '@nestjs/swagger'
 import { Auth } from '@app/auth/decorators/auth.decorator'
 import { IdValidationPipe } from '@app/pipes/id.validation.pipe'
 import { ActorService } from '@app/actor/actor.service'
 import { ActorDto } from '@app/actor/actor.dto'
 
+@ApiTags('Actors')
 @Controller('actors')
 export class ActorController {
 	constructor(private readonly actorService: ActorService) {}

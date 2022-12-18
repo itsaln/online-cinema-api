@@ -11,11 +11,13 @@ import {
 	UsePipes,
 	ValidationPipe
 } from '@nestjs/common'
-import { GenreService } from '@app/genre/genre.service'
+import { ApiTags } from '@nestjs/swagger'
 import { Auth } from '@app/auth/decorators/auth.decorator'
 import { IdValidationPipe } from '@app/pipes/id.validation.pipe'
+import { GenreService } from '@app/genre/genre.service'
 import { CreateGenreDto } from '@app/genre/dto/create-genre.dto'
 
+@ApiTags('Genres')
 @Controller('genres')
 export class GenreController {
 	constructor(private readonly genreService: GenreService) {}

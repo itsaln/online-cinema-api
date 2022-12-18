@@ -11,13 +11,15 @@ import {
 	UsePipes,
 	ValidationPipe
 } from '@nestjs/common'
+import { ApiTags } from '@nestjs/swagger'
 import { Types } from 'mongoose'
 import { Auth } from '@app/auth/decorators/auth.decorator'
-import { MovieService } from '@app/movie/movie.service'
 import { IdValidationPipe } from '@app/pipes/id.validation.pipe'
+import { MovieService } from '@app/movie/movie.service'
 import { CreateMovieDto } from '@app/movie/dto/create-movie.dto'
 import { GenreIdsDto } from '@app/movie/dto/genreIds.dto'
 
+@ApiTags('Movies')
 @Controller('movies')
 export class MovieController {
 	constructor(private readonly movieService: MovieService) {}
