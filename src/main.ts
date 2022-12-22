@@ -15,7 +15,7 @@ async function bootstrap() {
 	// SwaggerModule.setup('api', app, document)
 
 	app.setGlobalPrefix('api')
-	await app.listen(process.env.port || 5000)
+	await app.listen(process.env.PORT || 5000)
 	console.log(`Application is running on: ${await app.getUrl()}`)
 }
 
