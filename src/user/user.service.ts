@@ -24,7 +24,7 @@ export class UserService {
 		const isSameUser = await this.UserModel.findOne({ email: dto.email })
 
 		if (isSameUser && String(_id) !== String(isSameUser._id)) {
-			throw new NotFoundException('Email busy')
+			throw new NotFoundException('Email is busy')
 		}
 
 		if (user) {
