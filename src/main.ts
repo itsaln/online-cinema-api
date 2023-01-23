@@ -5,13 +5,14 @@ import { AppModule } from '@app/app.module'
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule, { cors: true })
 
-	// const config = new DocumentBuilder()
+	// const options = new DocumentBuilder()
 	// 	.setTitle('Online Cinema API')
 	// 	.setDescription('Online cinema application for watching movies')
 	// 	.setVersion('1.0')
+	// 	.addBearerAuth()
 	// 	.build()
 
-	// const document = SwaggerModule.createDocument(app, config)
+	// const document = SwaggerModule.createDocument(app, options)
 	// SwaggerModule.setup('api', app, document)
 
 	app.setGlobalPrefix('api')
