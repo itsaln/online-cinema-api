@@ -17,7 +17,10 @@ import { TelegramModule } from '@app/telegram/telegram.module'
 	controllers: [AppController],
 	providers: [AppService],
 	imports: [
-		ConfigModule.forRoot(),
+		ConfigModule.forRoot({
+			isGlobal: true,
+			envFilePath: '.env'
+		}),
 		TypegooseModule.forRootAsync({
 			imports: [ConfigModule],
 			inject: [ConfigService],
