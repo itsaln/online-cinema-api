@@ -1,7 +1,10 @@
 import { ConfigService } from '@nestjs/config'
 import { TypegooseModuleOptions } from 'nestjs-typegoose'
 
-const options = {}
+const options = {
+	useNewUrlParser: true,
+	useUnifiedTopology: true
+}
 
 export const getMongoConfig = async (
 	configService: ConfigService
